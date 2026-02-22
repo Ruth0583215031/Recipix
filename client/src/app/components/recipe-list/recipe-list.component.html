@@ -1,0 +1,58 @@
+<div class="container" style="direction: rtl;">
+  <h2 class="main-title text-center my-4">🍽️ קהילת המתכונים שלנו</h2>
+<div class="filter-bar d-flex justify-content-center gap-3 mb-4 p-3 bg-light rounded shadow-sm">
+  <div class="filter-group">
+    <label class="small fw-bold">סוג מנה:</label>
+    <select class="form-select form-select-sm" (change)="onTypeChange($event)">
+      <option value="All">הכל</option>
+      <option value="Dairy">חלבי</option>
+      <option value="Meat">בשרי</option>
+      <option value="Parve">פרווה</option>
+    </select>
+  </div>
+
+  <div class="filter-group">
+    <label class="small fw-bold">דירוג מינימלי:</label>
+    <div class="rating-filters d-flex gap-1">
+      <button *ngFor="let star of [1,2,3,4,5]" 
+              (click)="onRatingChange(star)"
+              [class.btn-warning]="minRating >= star"
+              [class.btn-outline-secondary]="minRating < star"
+              class="btn btn-sm star-filter">
+        ★
+      </button>
+    </div>
+  </div>
+</div>
+  <div class="search-section mb-4 text-center">
+    <div class="btn-group mb-3 shadow-sm">
+      <button class="btn" [ngClass]="!isIngredientSearch ? 'btn-warning' : 'btn-outline-warning'" (click)="toggleSearchMode()">🔍 חיפוש חופשי</button>
+      <button class="btn" [ngClass]="isIngredientSearch ? 'btn-warning' : 'btn-outline-warning'" (click)="toggleSearchMode()">🥗 מה יש לי במקרר?</button>
+    </div>
+
+    <input *ngIf="!isIngredientSearch" type="text" class="form-control" placeholder="חפש לפי שם או סוג..." (input)="onSearch($event)">
+    <input *ngIf="isIngredientSearch" type="text" class="form-control border-success" placeholder="הזן רכיבים מופרדים בפסיק (למשל: קמח, מלח)..." (change)="onIngredientSearch($event)">
+  </div>
+
+  <div class="grid">
+    <div *ngFor="let r of recipes" class="card shadow-sm border-0">
+      <div class="badge-container">
+        <span class="type-badge" [ngClass]="r.type">{{ r.type === 'Dairy' ? 'חלבי' : (r.type === 'Meat' ? 'בשרי' : 'פרווה') }}</span>
+      </div>
+
+      <div class="match-score-badge" *ngIf="r.match_score">
+        {{ r.match_score }}% התאמה
+      </div>
+
+      <img [src]="r.image_url" alt="Recipe" class="card-img">
+
+      <div class="card-content p-3">
+        <h3 class="recipe-name h5">{{ r.name }}</h3>
+        <div class="card-footer d-flex justify-content-between align-items-center mt-3">
+          <button class="btn btn-warning btn-sm fw-bold" [routerLink]="['/recipe', r.id]">למתכון המלא</button>
+          <button class="delete-btn" *ngIf="canDelete(r.user_id)" (click)="deleteRecipe(r.id)">🗑️</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

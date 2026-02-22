@@ -1,0 +1,37 @@
+<div class="auth-wrapper">
+  <div class="auth-card">
+    <h3>{{ isLogin ? 'ברוכים הבאים' : 'הצטרפו אלינו' }}</h3>
+    <p>{{ isLogin ? 'התחברו כדי לנהל את המתכונים שלכם' : 'צרו חשבון והתחילו לשתף' }}</p>
+
+    <form [formGroup]="authForm" (ngSubmit)="submit()">
+      
+      <div class="form-group" *ngIf="!isLogin">
+        <label>שם מלא</label>
+        <input type="text" formControlName="user_name" placeholder="הכנס שם מלא">
+        <small class="error-text" *ngIf="isInvalid('user_name')">חובה להזין שם מלא</small>
+      </div>
+
+      <div class="form-group">
+        <label>כתובת אימייל</label>
+        <input type="email" formControlName="email" placeholder="email@example.com">
+        <small class="error-text" *ngIf="isInvalid('email')">אנא הזן כתובת אימייל תקינה</small>
+      </div>
+
+      <div class="form-group">
+        <label>סיסמה</label>
+        <input type="password" formControlName="password" placeholder="לפחות 6 תווים">
+        <small class="error-text" *ngIf="isInvalid('password')">הסיסמה חייבת להכיל 6 תווים לפחות</small>
+      </div>
+
+      <button type="submit" class="btn-submit" [disabled]="authForm.invalid && isLogin">
+        {{ isLogin ? 'התחברות' : 'הרשמה' }}
+      </button>
+    </form>
+    
+    <div class="text-center mt-4">
+       <a href="javascript:void(0)" (click)="isLogin = !isLogin; authForm.reset()" class="toggle-link">
+         {{ isLogin ? 'עוד לא רשומים? צרו חשבון חדש' : 'כבר רשומים? עברו להתחברות' }}
+       </a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,90 @@
+/* בס"ד - add-recipe.component.css */
+.add-recipe-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.ingredient-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 5px;
+  align-items: center;
+}
+
+.input-sm { width: 85px; }
+.input-lg { flex-grow: 1; }
+
+.error-container {
+  margin-bottom: 10px;
+  padding-right: 5px;
+}
+
+.btn-remove {
+  background: #ff4444;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-add {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 14px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-submit:hover { background-color: #0056b3; }
+
+.error-text {
+  color: #d93025;
+  font-size: 0.8rem;
+  margin-top: 4px;
+  display: block;
+}
+
+input.ng-invalid.ng-touched, 
+textarea.ng-invalid.ng-touched, 
+select.ng-invalid.ng-touched {
+  border: 1px solid #d93025 !important;
+  background-color: #fce8e6;
+}

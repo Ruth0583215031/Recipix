@@ -1,0 +1,60 @@
+<div class="details-container" *ngIf="recipe" style="direction: rtl;">
+  <a routerLink="/" class="btn-back">⬅️ חזרה לרשימה</a>
+  
+  <div class="main-header">
+    <div class="title-area">
+      <h1>{{ recipe.name }}</h1>
+      <span class="badge" [ngClass]="recipe.type">{{ recipe.type }}</span>
+    </div>
+
+    <div class="rating-box text-center">
+      <div class="avg-rating">
+        <span class="score">{{ recipe.rating }}</span>
+        <span class="stars">⭐</span>
+      </div>
+      <small class="text-muted">דירוג גולשים</small>
+
+      <div class="user-rate-action mt-2" *ngIf="auth.isLoggedIn()">
+        <p class="mb-1 small fw-bold">דרג/י את המתכון:</p>
+        <div class="btn-group">
+          <button *ngFor="let s of [1,2,3,4,5]" 
+                  (click)="rateRecipe(s)" 
+                  class="btn btn-sm btn-outline-warning"
+                  [title]="'דרג ' + s + ' כוכבים'">
+            {{ s }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="recipe-layout">
+    <div class="image-gallery">
+      <div class="main-image">
+        <img [src]="recipe.image_url" alt="תמונה ראשית">
+        <p class="img-caption">תמונה מקורית</p>
+      </div>
+      
+      <div class="variations-grid">
+        <div *ngFor="let v of recipe.variations" class="variation-item">
+          <img [src]="getVariationUrl(v.path)" [alt]="v.title">
+          <p class="img-caption">{{ v.title }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-side">
+      <h3>📋 מצרכים:</h3>
+      <ul class="ing-list">
+        <li *ngFor="let ing of recipe.ingredients">
+          <b>{{ ing.amount }} {{ ing.unit }}</b> - {{ ing.product }}
+        </li>
+      </ul>
+
+      <hr>
+
+      <h3>👨‍🍳 הוראות הכנה:</h3>
+      <p class="instructions">{{ recipe.instructions }}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,130 @@
+/* בס"ד - recipe-details.component.css */
+.details-container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+}
+
+.btn-back {
+  display: inline-block;
+  margin-bottom: 20px;
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+}
+
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 15px;
+  margin-bottom: 25px;
+}
+
+.recipe-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+/* גלריית תמונות */
+.image-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.main-image img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.variations-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.variation-item img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 2px solid #eee;
+}
+
+.img-caption {
+  font-size: 12px;
+  text-align: center;
+  color: #666;
+  margin-top: 5px;
+}
+
+/* צד המידע */
+.info-side {
+  background: #fdfdfd;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.ing-list {
+  list-style: none;
+  padding: 0;
+}
+
+.ing-list li {
+  padding: 8px 0;
+  border-bottom: 1px dashed #ddd;
+}
+
+.instructions {
+  line-height: 1.8;
+  white-space: pre-line; /* שומר על ירידות שורה מהטופס */
+  color: #444;
+}
+
+/* באג'ים לסוגי מתכון */
+.badge { padding: 5px 15px; border-radius: 20px; color: white; font-size: 14px; }
+.Dairy { background-color: #00bcd4; }
+.Meat { background-color: #f44336; }
+.Parve { background-color: #4caf50; }
+
+@media (max-width: 768px) {
+  .recipe-layout { grid-template-columns: 1fr; }
+}
+
+/* עיצוב תיבת הדירוג */
+.rating-box {
+  background: #fff9e6;
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid #ffe082;
+}
+
+.avg-rating .score {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #ff9800;
+}
+
+/* הפיכת כפתורי המספרים לכוכבים מעוצבים */
+.btn-outline-warning {
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  padding: 0;
+  line-height: 33px;
+  font-weight: bold;
+  transition: all 0.2s;
+}
+
+.btn-outline-warning:hover {
+  transform: scale(1.2);
+  background-color: #ffc107;
+  color: white;
+}

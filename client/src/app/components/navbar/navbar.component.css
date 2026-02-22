@@ -1,0 +1,21 @@
+/* הגדרה למרכוז אנכי של כל התפריט */
+.navbar {
+  min-height: 70px;
+}
+
+/* עיצוב קישור פעיל */
+.nav-link.active {
+  color: #ff9800 !important;
+  font-weight: bold;
+  border-bottom: 2px solid #ff9800;
+}
+
+/* ריווח בין השם לכפתור */
+.gap-3 {
+  gap: 1rem !important;
+}
+
+/* יישור טקסט לימין בתוך התפריט */
+.navbar-nav {
+  padding-right: 0;
+}

@@ -1,0 +1,54 @@
+<div class="add-recipe-container" style="direction: rtl;">
+  <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+    
+    <div class="form-group">
+      <label>שם המתכון:</label>
+      <input type="text" formControlName="name" placeholder="למשל: עוגת גבינה פירורים">
+      <small class="error-text" *ngIf="isInvalid('name')">שם המתכון חייב להכיל לפחות 3 תווים</small>
+    </div>
+
+    <div class="form-group">
+      <label>סוג המתכון:</label>
+      <select formControlName="type">
+        <option value="Dairy">חלבי</option>
+        <option value="Meat">בשרי</option>
+        <option value="Parve">פרווה</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>מצרכים:</label>
+      <div formArrayName="ingredients">
+        <div *ngFor="let ing of ingredients.controls; let i=index" [formGroupName]="i">
+          <div class="ingredient-row">
+            <input type="number" formControlName="amount" class="input-sm" placeholder="כמות">
+            <select formControlName="unit" class="input-sm">
+              <option>יחידות</option><option>כוסות</option><option>גרם</option>
+            </select>
+            <input type="text" formControlName="product" placeholder="שם המוצר" class="input-lg">
+            <button type="button" (click)="removeIngredient(i)" class="btn-remove" title="מחק מצרך">🗑️</button>
+          </div>
+          <div class="error-container">
+            <small class="error-text" *ngIf="isInvalid('amount', i)">כמות לא תקינה</small>
+            <small class="error-text" *ngIf="isInvalid('product', i)">שם המוצר חסר</small>
+          </div>
+        </div>
+      </div>
+      <button type="button" (click)="addIngredient()" class="btn-add">+ הוסף מצרך</button>
+    </div>
+
+    <div class="form-group">
+      <label>הוראות הכנה:</label>
+      <textarea rows="4" formControlName="instructions" placeholder="פרט כאן את שלבי ההכנה..."></textarea>
+      <small class="error-text" *ngIf="isInvalid('instructions')">מינימום 10 תווים של הוראות</small>
+    </div>
+
+    <div class="form-group">
+      <label>תמונה ראשית:</label>
+      <input type="file" (change)="onFileSelect($event)" accept="image/*">
+      <small class="error-text" *ngIf="recipeForm.touched && !selectedFile">חובה לצרף תמונה</small>
+    </div>
+
+    <button type="submit" class="btn-submit">שמור מתכון</button>
+  </form>
+</div>

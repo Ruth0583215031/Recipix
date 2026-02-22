@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4 shadow-sm" style="direction: rtl;">
+  <div class="container-fluid">
+    <a class="navbar-brand text-warning fw-bold fs-3" routerLink="/">👨‍🍳 Recipix</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link text-white" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">המתכונים שלי</a>
+        </li>
+        <li class="nav-item" *ngIf="auth.isLoggedIn()">
+          <a class="nav-link text-white" routerLink="/profile" routerLinkActive="active">אזור אישי</a>
+        </li>
+      </ul>
+
+      <div class="d-flex align-items-center gap-3">
+        <ng-container *ngIf="auth.isLoggedIn(); else guestLinks">
+          <span class="text-white border-end pe-3">
+            שלום, <span class="fw-bold text-warning">{{ getUserName() }}</span>
+          </span>
+          <button (click)="onLogout()" class="btn btn-outline-danger btn-sm">התנתק</button>
+        </ng-container>
+
+        <ng-template #guestLinks>
+          <a routerLink="/login" class="btn btn-warning btn-sm fw-bold">כניסה / הרשמה</a>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</nav>
