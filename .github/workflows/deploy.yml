@@ -1,102 +1,27 @@
-name: Deploy
-Recipix
-to
-EC2
-
+name: Deploy Recipix to EC2
 on:
-push:
-branches:
-- main  # וודאי שזה שם הבראנץ' שלך. אם זה בראנץ' אחר (כמו ayalaKastner), שנו אותו כאן.
-name: Deploy
-Recipix
-to
-EC2
-
-on:
-push:
-branches:
-- main  # וודאי שזה שם הבראנץ' שלך. אם זה בראנץ' אחר (כמו ayalaKastner), שנו אותו כאן.
-
+  push:
+    branches:
+      - main
 jobs:
-deploy:
-runs - on: ubuntu - latest
-steps:
-- name: Deploy
-to
-Server
-via
-SSH
-[cite_start]
-uses: appleboy / ssh - action @ v0
-.1
-.10[cite: 37, 92]
-with:
-    host: ${{secrets.RECIPIX_SERVER_IP}}
-    username: ${{secrets.RECIPIX_SERVER_USER}}
-    key: ${{secrets.RECIPIX_SSH_KEY}}
-    script: |
-    cd
-    ~ / Recipix[cite: 44, 99]
-    git
-    pull
-    origin
-    main  # וודאי שזה שם הבראנץ' הנכון
-
-    # עדכון Backend
-    source
-    venv / bin / activate
-    pip
-    install - r
-    requirements.txt
-
-    # עדכון Frontend
-    cd
-    client
-    npm
-    install
-    npm
-    run
-    build - -configuration = production
-
-    # אתחול השרתים ב-Screen
-    screen - S
-    backend - X
-    quit | | true
-    screen - dmS
-    backend
-    python3
-    app.py
-
-    screen - S
-    frontend - X
-    quit || true
-    screen -dmS frontend ng serve --host 0.0.0.0 --port 4200
-jobs:
-deploy:
-runs-on: ubuntu-latest
-steps:
-- name: Deploy to Server via SSH
-[cite_start]uses: appleboy/ssh-action@v0.1.10 [cite: 37, 92]
-with:
-    host: ${{ secrets.RECIPIX_SERVER_IP }}
-    username: ${{ secrets.RECIPIX_SERVER_USER }}
-    key: ${{ secrets.RECIPIX_SSH_KEY }}
-    script: |
-    cd ~/Recipix [cite: 44, 99]
-    git pull origin main # וודאי שזה שם הבראנץ' הנכון
-
-    # עדכון Backend
-    source venv/bin/activate
-    pip install -r requirements.txt
-
-    # עדכון Frontend
-    cd client
-    npm install
-    npm run build --configuration=production
-
-    # אתחול השרתים ב-Screen
-    screen -S backend -X quit || true
-    screen -dmS backend python3 app.py
-
-    screen -S frontend -X quit || true
-    screen -dmS frontend ng serve --host 0.0.0.0 --port 4200
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Server via SSH
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.RECIPIX_SERVER_IP }}
+          username: ${{ secrets.RECIPIX_SERVER_USER }}
+          key: ${{ secrets.RECIPIX_SSH_KEY }}
+          script: |
+            cd ~/Recipix
+            git pull origin main
+            source venv/bin/activate
+            pip install -r requirements.txt
+            cd client
+            npm install
+            npm run build --configuration=production
+            screen -S backend -X quit || true
+            screen -S frontend -X quit || true
+            screen -dmS backend python3 app.py
+            screen -dmS frontend npx ng serve --host 0.0.0.0 --port 4200
