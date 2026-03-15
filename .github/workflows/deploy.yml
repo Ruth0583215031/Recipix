@@ -15,13 +15,25 @@ jobs:
           key: ${{ secrets.RECIPIX_SSH_KEY }}
           script: |
             cd ~/Recipix
-            git pull origin main
+            git fetch --all
+            git reset --hard origin/main
+            
+            # עדכון סביבת פייתון
             source venv/bin/activate
             pip install -r requirements.txt
+            
+            # בניית הפרונטנד (Angular)
             cd client
             npm install
             npm run build --configuration=production
+            
+            # ניקוי שרתים ישנים
             screen -S backend -X quit || true
             screen -S frontend -X quit || true
+            
+            # הרצת ה-Backend
             screen -dmS backend python3 app.py
-            screen -dmS frontend npx ng serve --host 0.0.0.0 --port 4200
+            
+            # הרצת ה-Frontend בגרסת ייצור קלה (חוסך המון זיכרון)
+            # אם http-server לא מותקן, הפקודה תתקין אותו אוטומטית דרך npx
+            screen -dmS frontend npx http-server dist/client/browser -p 4200 --host 0.0.0.0
